@@ -1,0 +1,28 @@
+# MTK platform .rc configure
+on post-fs-data
+    # Sensor
+    chmod 0660 /sys/bus/platform/drivers/gsensor/chipinfo
+    chmod 0660 /sys/bus/platform/drivers/gsensor/firlen
+    chmod 0660 /sys/bus/platform/drivers/gsensor/layout
+    chmod 0660 /sys/bus/platform/drivers/gsensor/sensordata
+    chmod 0660 /sys/bus/platform/drivers/gsensor/powerstatus
+    chmod 0660 /sys/bus/platform/drivers/gsensor/status
+    chmod 0660 /sys/bus/platform/drivers/gsensor/trace
+    chown 0660 /sys/bus/platform/drivers/gsensor/selftest
+    chown 0660 /sys/bus/platform/drivers/gsensor/run_fast_calibration
+    chown 0660 /sys/bus/platform/drivers/als_ps/cali
+    chown 0660 /sys/bus/platform/drivers/als_ps/ps_crosstalk
+
+    chown system system /sys/bus/platform/drivers/gsensor/chipinfo
+    chown system system /sys/bus/platform/drivers/gsensor/firlen
+    chown system system /sys/bus/platform/drivers/gsensor/layout
+    chown system system /sys/bus/platform/drivers/gsensor/sensordata
+    chown system system /sys/bus/platform/drivers/gsensor/powerstatus
+    chown system system /sys/bus/platform/drivers/gsensor/status
+    chown system system /sys/bus/platform/drivers/gsensor/trace
+    chown system system /sys/bus/platform/drivers/gsensor/selftest
+    chown system system /sys/bus/platform/drivers/gsensor/run_fast_calibration
+    chown system system /sys/bus/platform/drivers/als_ps/cali
+    chown system system /sys/bus/platform/drivers/als_ps/ps_crosstalk
+
+    mkdir mnt/vendor/persist-lg/sensor 0755 system system

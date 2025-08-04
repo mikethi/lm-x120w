@@ -1,0 +1,37 @@
+#file will be installed as vendor/etc/init/hw/init.{ro.hardware}.rc
+
+import /vendor/etc/init/hw/init.mt6739.rc
+
+# to override init.mt6739.rc and init.project.rc
+import /vendor/etc/init/hw/init.lge.usb.rc
+import /vendor/etc/init/hw/init.lge.usb.configfs.rc
+import /vendor/etc/init/init.lge.fs.rc
+
+# import rc file for chipset[mt6739] common
+import /vendor/etc/init/hw/init.mt6739_core.rc
+
+# import rc file for chipset[mt6739] common
+import /vendor/etc/init/hw/init.${ro.hardware}_core.rc
+
+# LGE FM Radio rc
+import /init.lge.fm.rc
+
+# import vendor rc file
+import /vendor/etc/init/hw/init.${ro.hardware}_vendor.rc
+
+# import wifi service
+import /vendor/etc/init/init.wifi.rc
+
+on post-fs
+# Load exfat module
+    insmod /vendor/lib64/modules/texfat.ko
+
+on post-fs-data
+    # NFC: create data/nfc for nv storage
+    mkdir /data/vendor/nfc 0770 nfc nfc
+
+    # lableing lg partitions
+    restorecon /mnt/vendor/persist-lg
+    restorecon_recursive /mnt/vendor/persist-lg
+    restorecon /mnt/vendor/persist
+    restorecon_recursive /mnt/vendor/persist
