@@ -1,0 +1,29 @@
+######## init.mid.service.rc ########
+
+on boot
+    start midd
+
+on post-fs-data
+    # To use /sdcard path
+    symlink /data/media/0 /mnt/user/0/primary
+
+# LGE service
+service midd /system/bin/midd
+    class mid_service
+    user root
+    group root
+    seclabel u:r:recovery:s0
+
+on property:ro.boot.vendor.lge.laf=MID && property:ro.vendor.lge.mid.bootstart=1
+    class_start mid_service
+
+# FACTORY FRP CHECK
+on property:vendor.lge.bluefactorymode=*
+    factory_frp_check
+
+# force terminate bootanimation
+on property:init.svc.bootanim=running
+    stop bootanim
+
+on property:sys.boot_completed=1
+    setprop vendor.lge.bluefactorymode 1
